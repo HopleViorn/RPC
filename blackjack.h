@@ -14,35 +14,78 @@ extern "C" {
 #endif
 
 
-struct intpair {
-	int a;
-	int b;
+struct card {
+	int rank;
+	int suit;
+	int point;
 };
-typedef struct intpair intpair;
+typedef struct card card;
 
-#define ADD_PROG 0x20000001
-#define ADD_VERS 1
+#define BLACKJACK 0x20000001
+#define BLACKJACK_VERS 1
 
 #if defined(__STDC__) || defined(__cplusplus)
-#define ADD 1
-extern  int * add_1(intpair *, CLIENT *);
-extern  int * add_1_svc(intpair *, struct svc_req *);
-extern int add_prog_1_freeresult (SVCXPRT *, xdrproc_t, caddr_t);
+#define initialize 0
+extern  int * initialize_1(void *, CLIENT *);
+extern  int * initialize_1_svc(void *, struct svc_req *);
+#define draw_for_player 1
+extern  card * draw_for_player_1(void *, CLIENT *);
+extern  card * draw_for_player_1_svc(void *, struct svc_req *);
+#define dealer_before_turn 2
+extern  card * dealer_before_turn_1(void *, CLIENT *);
+extern  card * dealer_before_turn_1_svc(void *, struct svc_req *);
+#define dealer_turn 3
+extern  char ** dealer_turn_1(void *, CLIENT *);
+extern  char ** dealer_turn_1_svc(void *, struct svc_req *);
+#define check_win 4
+extern  char ** check_win_1(void *, CLIENT *);
+extern  char ** check_win_1_svc(void *, struct svc_req *);
+#define show_hole_card 5
+extern  char ** show_hole_card_1(void *, CLIENT *);
+extern  char ** show_hole_card_1_svc(void *, struct svc_req *);
+#define get_player_points 6
+extern  int * get_player_points_1(void *, CLIENT *);
+extern  int * get_player_points_1_svc(void *, struct svc_req *);
+#define get_dealer_points 7
+extern  int * get_dealer_points_1(void *, CLIENT *);
+extern  int * get_dealer_points_1_svc(void *, struct svc_req *);
+extern int blackjack_1_freeresult (SVCXPRT *, xdrproc_t, caddr_t);
 
 #else /* K&R C */
-#define ADD 1
-extern  int * add_1();
-extern  int * add_1_svc();
-extern int add_prog_1_freeresult ();
+#define initialize 0
+extern  int * initialize_1();
+extern  int * initialize_1_svc();
+#define draw_for_player 1
+extern  card * draw_for_player_1();
+extern  card * draw_for_player_1_svc();
+#define dealer_before_turn 2
+extern  card * dealer_before_turn_1();
+extern  card * dealer_before_turn_1_svc();
+#define dealer_turn 3
+extern  char ** dealer_turn_1();
+extern  char ** dealer_turn_1_svc();
+#define check_win 4
+extern  char ** check_win_1();
+extern  char ** check_win_1_svc();
+#define show_hole_card 5
+extern  char ** show_hole_card_1();
+extern  char ** show_hole_card_1_svc();
+#define get_player_points 6
+extern  int * get_player_points_1();
+extern  int * get_player_points_1_svc();
+#define get_dealer_points 7
+extern  int * get_dealer_points_1();
+extern  int * get_dealer_points_1_svc();
+extern int blackjack_1_freeresult ();
 #endif /* K&R C */
 
 /* the xdr functions */
 
 #if defined(__STDC__) || defined(__cplusplus)
-extern  bool_t xdr_intpair (XDR *, intpair*);
+extern  bool_t xdr_card (XDR *, card*);
 
 #else /* K&R C */
-extern bool_t xdr_intpair ();
+extern bool_t xdr_card ();
 
 #endif /* K&R C */
 

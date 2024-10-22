@@ -1,7 +1,16 @@
 {
     "files.associations": {
-        "*.fsh": "glsl",
-        "iostream": "cpp",
-        "blackjack.h": "c"
-    }
+		"*.fsh": "glsl",
+		"iostream": "cpp",
+		"blackjack.h": "c",
+		"functional": "cpp",
+		"__locale": "cpp",
+		"random": "cpp",
+		"algorithm": "cpp",
+		"ostream": "cpp",
+		"tuple": "cpp",
+		"type_traits": "cpp",
+		"utility": "cpp",
+		"sstream": "cpp"
+	}
 }

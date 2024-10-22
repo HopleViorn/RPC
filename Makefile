@@ -1,7 +1,8 @@
-
+rpc:
+	rpcgen blackjack.x
 servers:
-	g++ blackjack_server.c blackjack_svc.c blackjack_xdr.c -o server -ltirpc -I/usr/include/tirpc
+	g++ server.cc blackjack_svc.c blackjack_xdr.c -o server -ltirpc -I/usr/include/tirpc -w
 clients:
-	g++ blackjack_client.c blackjack_clnt.c blackjack_xdr.c -o client -ltirpc -I/usr/include/tirpc
+	g++ client.cc blackjack_clnt.c blackjack_xdr.c -o client -ltirpc -I/usr/include/tirpc -w
 
-all: servers clients
+all: rpc servers clients

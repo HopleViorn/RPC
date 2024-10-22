@@ -1,0 +1,17 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+	  {
+		"label": "build",
+		"type": "shell",
+		"command": "make all", // replace this with your build command, like 'make', 'cmake --build .', etc.
+		"group": {
+		  "kind": "build",
+		  "isDefault": true
+		},
+		"problemMatcher": [],
+		"detail": "Builds the project whenever a file is saved"
+	  }
+	]
+  }
+  

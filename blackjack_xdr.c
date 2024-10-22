@@ -6,13 +6,15 @@
 #include "blackjack.h"
 
 bool_t
-xdr_intpair (XDR *xdrs, intpair *objp)
+xdr_card (XDR *xdrs, card *objp)
 {
 	register int32_t *buf;
 
-	 if (!xdr_int (xdrs, &objp->a))
+	 if (!xdr_int (xdrs, &objp->rank))
 		 return FALSE;
-	 if (!xdr_int (xdrs, &objp->b))
+	 if (!xdr_int (xdrs, &objp->suit))
+		 return FALSE;
+	 if (!xdr_int (xdrs, &objp->point))
 		 return FALSE;
 	return TRUE;
 }

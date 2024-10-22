@@ -17,24 +17,62 @@
 #endif
 
 static void
-add_prog_1(struct svc_req *rqstp, register SVCXPRT *transp)
+blackjack_1(struct svc_req *rqstp, register SVCXPRT *transp)
 {
 	union {
-		intpair add_1_arg;
+		int fill;
 	} argument;
 	char *result;
 	xdrproc_t _xdr_argument, _xdr_result;
 	char *(*local)(char *, struct svc_req *);
 
 	switch (rqstp->rq_proc) {
-	case NULLPROC:
-		(void) svc_sendreply (transp, (xdrproc_t) xdr_void, (char *)NULL);
-		return;
-
-	case ADD:
-		_xdr_argument = (xdrproc_t) xdr_intpair;
+	case initialize:
+		_xdr_argument = (xdrproc_t) xdr_void;
 		_xdr_result = (xdrproc_t) xdr_int;
-		local = (char *(*)(char *, struct svc_req *)) add_1_svc;
+		local = (char *(*)(char *, struct svc_req *)) initialize_1_svc;
+		break;
+
+	case draw_for_player:
+		_xdr_argument = (xdrproc_t) xdr_void;
+		_xdr_result = (xdrproc_t) xdr_card;
+		local = (char *(*)(char *, struct svc_req *)) draw_for_player_1_svc;
+		break;
+
+	case dealer_before_turn:
+		_xdr_argument = (xdrproc_t) xdr_void;
+		_xdr_result = (xdrproc_t) xdr_card;
+		local = (char *(*)(char *, struct svc_req *)) dealer_before_turn_1_svc;
+		break;
+
+	case dealer_turn:
+		_xdr_argument = (xdrproc_t) xdr_void;
+		_xdr_result = (xdrproc_t) xdr_wrapstring;
+		local = (char *(*)(char *, struct svc_req *)) dealer_turn_1_svc;
+		break;
+
+	case check_win:
+		_xdr_argument = (xdrproc_t) xdr_void;
+		_xdr_result = (xdrproc_t) xdr_wrapstring;
+		local = (char *(*)(char *, struct svc_req *)) check_win_1_svc;
+		break;
+
+	case show_hole_card:
+		_xdr_argument = (xdrproc_t) xdr_void;
+		_xdr_result = (xdrproc_t) xdr_wrapstring;
+		local = (char *(*)(char *, struct svc_req *)) show_hole_card_1_svc;
+		break;
+
+	case get_player_points:
+		_xdr_argument = (xdrproc_t) xdr_void;
+		_xdr_result = (xdrproc_t) xdr_int;
+		local = (char *(*)(char *, struct svc_req *)) get_player_points_1_svc;
+		break;
+
+	case get_dealer_points:
+		_xdr_argument = (xdrproc_t) xdr_void;
+		_xdr_result = (xdrproc_t) xdr_int;
+		local = (char *(*)(char *, struct svc_req *)) get_dealer_points_1_svc;
 		break;
 
 	default:
@@ -62,15 +100,15 @@ main (int argc, char **argv)
 {
 	register SVCXPRT *transp;
 
-	pmap_unset (ADD_PROG, ADD_VERS);
+	pmap_unset (BLACKJACK, BLACKJACK_VERS);
 
 	transp = svcudp_create(RPC_ANYSOCK);
 	if (transp == NULL) {
 		fprintf (stderr, "%s", "cannot create udp service.");
 		exit(1);
 	}
-	if (!svc_register(transp, ADD_PROG, ADD_VERS, add_prog_1, IPPROTO_UDP)) {
-		fprintf (stderr, "%s", "unable to register (ADD_PROG, ADD_VERS, udp).");
+	if (!svc_register(transp, BLACKJACK, BLACKJACK_VERS, blackjack_1, IPPROTO_UDP)) {
+		fprintf (stderr, "%s", "unable to register (BLACKJACK, BLACKJACK_VERS, udp).");
 		exit(1);
 	}
 
@@ -79,8 +117,8 @@ main (int argc, char **argv)
 		fprintf (stderr, "%s", "cannot create tcp service.");
 		exit(1);
 	}
-	if (!svc_register(transp, ADD_PROG, ADD_VERS, add_prog_1, IPPROTO_TCP)) {
-		fprintf (stderr, "%s", "unable to register (ADD_PROG, ADD_VERS, tcp).");
+	if (!svc_register(transp, BLACKJACK, BLACKJACK_VERS, blackjack_1, IPPROTO_TCP)) {
+		fprintf (stderr, "%s", "unable to register (BLACKJACK, BLACKJACK_VERS, tcp).");
 		exit(1);
 	}
 
