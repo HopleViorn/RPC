@@ -49,6 +49,9 @@ extern  int * get_player_points_1_svc(void *, struct svc_req *);
 #define get_dealer_points 7
 extern  int * get_dealer_points_1(void *, CLIENT *);
 extern  int * get_dealer_points_1_svc(void *, struct svc_req *);
+#define player_choice 8
+extern  int * player_choice_1(int *, CLIENT *);
+extern  int * player_choice_1_svc(int *, struct svc_req *);
 extern int blackjack_1_freeresult (SVCXPRT *, xdrproc_t, caddr_t);
 
 #else /* K&R C */
@@ -76,6 +79,9 @@ extern  int * get_player_points_1_svc();
 #define get_dealer_points 7
 extern  int * get_dealer_points_1();
 extern  int * get_dealer_points_1_svc();
+#define player_choice 8
+extern  int * player_choice_1();
+extern  int * player_choice_1_svc();
 extern int blackjack_1_freeresult ();
 #endif /* K&R C */
 

@@ -128,3 +128,18 @@ get_dealer_points_1(void *argp, CLIENT *clnt)
 	}
 	return (&clnt_res);
 }
+
+int *
+player_choice_1(int *argp, CLIENT *clnt)
+{
+	static int clnt_res;
+
+	memset((char *)&clnt_res, 0, sizeof(clnt_res));
+	if (clnt_call (clnt, player_choice,
+		(xdrproc_t) xdr_int, (caddr_t) argp,
+		(xdrproc_t) xdr_int, (caddr_t) &clnt_res,
+		TIMEOUT) != RPC_SUCCESS) {
+		return (NULL);
+	}
+	return (&clnt_res);
+}

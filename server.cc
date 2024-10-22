@@ -95,6 +95,14 @@ char** show_hole_card_1_svc(void* argp, struct svc_req *rqstp) {
 	return &result;
 }
 
+int* player_choice_1_svc(int* argp, struct svc_req *rqstp) {
+	static int result;
+	if(*argp == 1) {//player choose the Ace to be 1
+		player_point -= 10;
+	}
+	return &result;
+}
+
 //finish the game
 char** check_win_1_svc(void* argp, struct svc_req *rqstp) {
 	ostringstream oss;

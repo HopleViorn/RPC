@@ -93,6 +93,15 @@ int _get_dealer_points(){
 	return *result;
 }
 
+int _player_choice(int choice){
+	int *result;
+	result = player_choice_1(&choice, clnt);
+	if(result == (int *) NULL){
+		clnt_perror (clnt, "call failed");
+	}
+	return *result;
+}
+
 void blackjack_1(char *host)
 {
 	clnt = clnt_create (host, BLACKJACK, BLACKJACK_VERS, "udp");
@@ -115,7 +124,14 @@ void blackjack_1(char *host)
 		char input;
 		cin>>input;
 		if(input=='h'){
-			player_draw();
+			card draw_card = player_draw();
+			if(draw_card.rank==14){//ACE
+				cout<<"You draw an Ace."<<endl;
+				cout<<"Do you want it to be 1 or 11?(1/11)"<<endl;
+				int choice;
+				cin>>choice;
+				_player_choice(choice);
+			}
 			int tot_points = _get_player_points();
 			cout<<"Your points: "<<tot_points<<endl;
 			if(tot_points>21){

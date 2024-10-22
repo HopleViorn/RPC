@@ -1,4 +1,3 @@
-/* add.x: RPC Interface definition */
 program BLACKJACK {
     version BLACKJACK_VERS {
 		int initialize() = 0;
@@ -9,6 +8,7 @@ program BLACKJACK {
 		string show_hole_card() = 5;
 		int get_player_points() = 6;
 		int get_dealer_points() = 7;
+		int player_choice(int) = 8;
     } = 1;
 } = 0x20000001;
 
