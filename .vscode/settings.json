@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "*.fsh": "glsl",
+        "iostream": "cpp",
+        "blackjack.h": "c"
+    }
+}
